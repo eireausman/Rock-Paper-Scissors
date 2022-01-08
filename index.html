@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+</head>
+<body>
+
+    <script>
+        
+        checkResult(getUserInput());
+        
+        function getUserInput() {
+            return  prompt("Choose Rock (R), Paper (P) or Scissors (S)").toLowerCase();
+            
+        }
+        
+        let compScore = 0;
+        let userScore = 0;
+
+        // let's check if the entered value is correct.  If it isn't, display a message and ask for a valid entry.   
+        function checkResult(U) {
+            const gameArray = ["r", "p", "s"];
+            const winArray = ["rs", "sp", "pr"]
+
+            const random = Math.floor(Math.random() * gameArray.length);
+            const compChoice = gameArray[random];
+            console.log(compChoice);
+
+            
+
+            if (gameArray.includes(U)) {
+                // it is a valid input so provide a result for the game
+                resultConcat = U.concat(compChoice);
+                if (winArray.includes(resultConcat)) {
+                    alert("You win: " + U + ' ' + compChoice);
+                } else if (U === compChoice) {
+                    alert("It's a Draw: " + U + ' ' + compChoice);
+                } else {
+                    alert("Computer wins: " + U + ' ' + compChoice);
+                }
+            }
+                else {
+                    alert("Please enter the letter 'R' (Rock), 'P' (Paper) or 'S' (Scissors).");
+                    checkResult(getUserInput());
+            }
+        }
+
+
+
+        
+    </script>
+    
+</body>
+</html>
