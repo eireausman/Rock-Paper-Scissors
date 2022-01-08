@@ -9,42 +9,44 @@
 <body>
 
     <script>
+    
+        game();
         
-        checkResult(getUserInput());
-        
-        function getUserInput() {
-            return  prompt("Choose Rock (R), Paper (P) or Scissors (S)").toLowerCase();
-            
-        }
-        
-        let compScore = 0;
-        let userScore = 0;
 
-        // let's check if the entered value is correct.  If it isn't, display a message and ask for a valid entry.   
-        function checkResult(U) {
+        function game() {
             const gameArray = ["r", "p", "s"];
             const winArray = ["rs", "sp", "pr"]
+                // randomly select a choice for the computer
+                function getCompChoice() {
+                    const random = Math.floor(Math.random() * gameArray.length);
+                    return gameArray[random];
+                } 
 
-            const random = Math.floor(Math.random() * gameArray.length);
-            const compChoice = gameArray[random];
-            console.log(compChoice);
+            let compScore = 0;
+            let userScore = 0;
 
-            
-
-            if (gameArray.includes(U)) {
-                // it is a valid input so provide a result for the game
-                resultConcat = U.concat(compChoice);
-                if (winArray.includes(resultConcat)) {
-                    alert("You win: " + U + ' ' + compChoice);
-                } else if (U === compChoice) {
-                    alert("It's a Draw: " + U + ' ' + compChoice);
-                } else {
-                    alert("Computer wins: " + U + ' ' + compChoice);
+            while (userScore < 5 && compScore < 5) {
+                playerSelection = prompt("Choose Rock (R), Paper (P) or Scissors (S)").toLowerCase();
+                computerSelection = getCompChoice();
+                
+                if (gameArray.includes(playerSelection)) {
+                    // it is a valid input so provide a result for the game
+                    resultConcat = playerSelection.concat(computerSelection);
+                    if (winArray.includes(resultConcat)) {
+                        alert("You win: " + playerSelection + ' ' + computerSelection);
+                        userScore++;
+                    } else if (playerSelection === computerSelection) {
+                        alert("It's a Draw: " + playerSelection + ' ' + computerSelection);
+                    } else {
+                        alert("Computer wins: " + playerSelection + ' ' + computerSelection);
+                        compScore++;
+                    }
                 }
-            }
-                else {
-                    alert("Please enter the letter 'R' (Rock), 'P' (Paper) or 'S' (Scissors).");
-                    checkResult(getUserInput());
+                    else {
+                        alert("Please enter the letter 'R' (Rock), 'P' (Paper) or 'S' (Scissors).");
+                }
+                
+                console.log("You " + userScore + " : " + compScore + " Computer");
             }
         }
 
