@@ -4,53 +4,169 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe Game</title>
+    <title>Rock Paper Scissors Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
+
 <body>
 
-    <script>
+  
+
+
+
+    <div class="gameSelectors">
+        <div class="singleSelector">
+            <img src="images/rock.png" alt="rock" id="rock">
+        </div>  
+        <div class="singleSelector">
+            <img src="images/paper.png" alt="rock" id="paper">
+        </div>  
+        <div class="singleSelector">
+            <img src="images/scissors.png" alt="rock" id="scissors">
+        </div>        
+    </div>
+
+
+    <div class="resultsArea">
+        <div class="currentScore">
+            <img class="lastSelectionUser" src="" alt="">
     
-        game();
+            <h3 id="userScore">
+            
+            </h3>
+        </div>
+        <div class="currentScore">
+            <img class="lastSelectionComp" src="" alt="">
+            <h3 id="compScore">
+            
+            </h3>
+            
+        </div>
+        <h1 id="endGameResult">
+   
+        </h1>
+    </div>
+
+    <script>
+
+        
+        rock.addEventListener('click', function (e) {
+        game(e.target.id);
+        // console.log(e.target.id);
+        });   
+        
+        paper.addEventListener('click', function (e) {
+        game(e.target.id);
+        // console.log(e.target.id);
+        });   
+
+        scissors.addEventListener('click', function (e) {
+        game(e.target.id);
+        // console.log(e.target.id);
+        });   
+
+            const userScoreValue =  document.querySelector('#userScore');
+            const compScoreValue =  document.querySelector('#compScore');
+            const endGameResult =  document.querySelector('#endGameResult');
+            const lastSelectionUser =  document.querySelector('.lastSelectionUser');
+            const lastSelectionComp =  document.querySelector('.lastSelectionComp');
+            const currentScore =  document.querySelectorAll('.currentScore');
+            
+  
+
+        
+        let compScore = 0;
+        let userScore = 0; 
+        let newGame = "y";
         
 
-        function game() {
-            const gameArray = ["r", "p", "s"];
-            const winArray = ["rs", "sp", "pr"]
+        function game(playerSelection) {
+            console.log(compScore + userScore);
+        if (newGame == "y") { 
+            GameReset();
+        }
+
+            const gameArray = ["rock", "paper", "scissors"];
+            const winArray = ["rockscissors", "paperrock", "scissorspaper"]
                 // randomly select a choice for the computer
                 function getCompChoice() {
                     const random = Math.floor(Math.random() * gameArray.length);
                     return gameArray[random];
                 } 
 
-            let compScore = 0;
-            let userScore = 0;
+ 
 
-            while (userScore < 5 && compScore < 5) {
-                playerSelection = prompt("Choose Rock (R), Paper (P) or Scissors (S)").toLowerCase();
+         
+                // playerSelection = prompt("Choose Rock (R), Paper (P) or Scissors (S)").toLowerCase();
                 computerSelection = getCompChoice();
                 
                 if (gameArray.includes(playerSelection)) {
                     // it is a valid input so provide a result for the game
                     resultConcat = playerSelection.concat(computerSelection);
                     if (winArray.includes(resultConcat)) {
-                        alert("You win: " + playerSelection + ' ' + computerSelection);
+                        gameResultString = "You win: " + playerSelection + ' ' + computerSelection;
                         userScore++;
                     } else if (playerSelection === computerSelection) {
-                        alert("It's a Draw: " + playerSelection + ' ' + computerSelection);
+                        gameResultString = "It's a Draw: " + playerSelection + ' ' + computerSelection;
                     } else {
-                        alert("Computer wins: " + playerSelection + ' ' + computerSelection);
+                        gameResultString = "Computer wins: " + playerSelection + ' ' + computerSelection;
                         compScore++;
                     }
-                }
-                    else {
-                        alert("Please enter the letter 'R' (Rock), 'P' (Paper) or 'S' (Scissors).");
+                
+                // now that we have played, check the scores 
+                    // console.log("You " + userScore + " : " + compScore + " Computer");
+
+
+                    userScoreValue.textContent = `You: ${userScore}`;
+                    compScoreValue.textContent = `Computer: ${compScore}`;
+                    // console.log(lastSelectionUser.src);
+                    lastSelectionUser.src = `images/${playerSelection}.png`;
+                    lastSelectionUser.alt = `${playerSelection}`;
+                    lastSelectionComp.src = `images/${computerSelection}.png`;
+                    lastSelectionComp.alt = `${computerSelection}`;
+                    // console.log(lastSelectionComp);
+
+
+
+                    
+                    
+
+                if (userScore >= 5) {
+                    endGame("You Win!!");
+                } else if (compScore >= 5) {
+                    endGame("Computer Wins.  Better luck next time.");
                 }
                 
-                console.log("You " + userScore + " : " + compScore + " Computer");
-            }
+
+            
         }
 
+        function endGame(textContent) {
+            endGameResult.textContent = "Computer Wins.  Better luck next time.";
+                    lastSelectionUser.style.display = "none";
+                    lastSelectionComp.style.display = "none";
+                    for (i = 0; i < currentScore.length; i++) {
+                        currentScore[i].style.display = "none";
+                    }
+                    compScore = 0;
+                    userScore = 0; 
+                    newGame = "y";
+        }
+        function GameReset () {     
+            compScore = 0;
+            userScore = 0; 
+            endGameResult.textContent = "";
+            // lastSelectionUser.style.removeProperty("display");
+            lastSelectionUser.style.display = "flex";
+            lastSelectionComp.style.display = "flex";
+            for (i = 0; i < currentScore.length; i++) {
+                currentScore[i].style.display = "flex";
+            }
+            newGame = "n"
+        }
 
+    }
 
         
     </script>

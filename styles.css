@@ -1,0 +1,45 @@
+body {
+    margin: auto;
+    max-width: 1280px;
+    border: 1px solid black;
+    text-align: center;
+    
+}
+
+.gameSelectors {
+    display: flex;
+    justify-content:center;
+    background: purple;
+    
+}
+.gameSelectors img:hover{
+    background:red;
+    cursor: pointer;
+
+}
+
+.singleSelector {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+.resultsArea {
+display: flex;
+justify-content: center;
+}
+
+.currentScore {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;    
+    max-width: 240px;
+
+}
+
+.endGameResult {
+    display: flex;
+    
+}
